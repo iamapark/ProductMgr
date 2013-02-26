@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-
+2.dtd">
+
+<sqlMap namespace="Product">
+
+	<resultMap id="ProductList" class="Product">
+		<result property="pCode" column="p_code" />
+		<result property="pName" column="p_name" />
+		<result property="price" column="price" />
+		<result property="quantity" column="quantity" />
+		<result property="pDesc" column="p_desc" />
+	</resultMap>
+
+	<select id="getProducts"  resultMap="ProductList">
+		select * from product
+	</select>
+	
+	<insert id="insertProduct" parameterClass="Product">
+		insert into product values (#pCode#, #pName#, #price#, #quantity#, #pDesc#)
+	</insert>
+	
+	<select id="isExist" parameterClass="int" resultClass="Product">
+		select * from product where p_code=#pCode#
+	</select>
+	
+	<select id="getProductByCode" parameterClass="int" resultMap="ProductList">
+		select * from product where p_code=#pCode#
+	</select>
+	
+	<update id="updateProduct" parameterClass="Product">
+		update product 
+		set p_name=#pName#, price=#price#, quantity=#quantity#, p_desc=#pDesc# 
+		where p_code=#pCode#
+	</update>
+	
+	<delete id="deleteProduct" parameterClass="int">
+		delete from product where p_code=#pCode#
+	</delete>
+	
+	<insert id="updateStock" parameterClass="Product">
+		UPDATE product SET quantity=(
+		SELECT quantity FROM product WHERE p_code=#pCode#
+		)+#quantity# WHERE p_code=#pCode#;
+	</insert>
+	
+	<insert id="updateRelease" parameterClass="Product">
+		UPDATE product SET quantity=(
+		SELECT quantity FROM product WHERE p_code=#pCode#
+		)-#quantity# WHERE p_code=#pCode#;
+	</insert>
+</sqlMap>
