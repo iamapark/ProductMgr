@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
-	<title>상품 등록 페이지</title>
+	<title>상품 등록 페이지2</title>
 <script LANGUAGE="JavaScript" >
 
 function confirmation(){
@@ -17,8 +17,6 @@ function confirmation(){
 		pCode.focus(); clear();
 		return;
 	}
-	
-	
 
 	//상품코드  숫자 및 길이 확인
 	else if(pCode.value.length != 4){
